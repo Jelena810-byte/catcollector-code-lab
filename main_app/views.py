@@ -14,11 +14,13 @@ from rest_framework.exceptions import PermissionDenied # include this additional
 
 
 
+
+
 # include the registration, login, and verification views below
 # User Registration
 class CreateUserView(generics.CreateAPIView):
-   queryset = User.objects.all()
-   serializer_class = UserSerializer
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
 
   def create(self, request, *args, **kwargs):
     response = super().create(request, *args, **kwargs)
@@ -93,16 +95,16 @@ class CatDetail(generics.RetrieveUpdateDestroyAPIView):
 
   # add (override) the retrieve method below
   def retrieve(self, request, *args, **kwargs):
-     instance = self.get_object()
-     serializer = self.get_serializer(instance)
+    instance = self.get_object()
+    serializer = self.get_serializer(instance)
 
     # Get the list of toys not associated with this cat
-     toys_not_associated = Toy.objects.exclude(id__in=instance.toys.all())
-     toys_serializer = ToySerializer(toys_not_associated, many=True)
+    toys_not_associated = Toy.objects.exclude(id__in=instance.toys.all())
+    toys_serializer = ToySerializer(toys_not_associated, many=True)
 
-      return Response({
-         'cat': serializer.data,
-         'toys_not_associated': toys_serializer.data
+    return Response({
+      'cat': serializer.data,
+      'toys_not_associated': toys_serializer.data
     })
 
     def perform_update(self, serializer):

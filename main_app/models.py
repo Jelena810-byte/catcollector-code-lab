@@ -52,6 +52,11 @@ class Feeding(models.Model):
     # def fed_for_today(self):
     # return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
-    class Meta:
+class Meta:
         ordering = ['-date']
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorite_color = models.CharField(max_length=50)
 
