@@ -1,4 +1,10 @@
 from django.db import models
+from datetime import date
+# Import the User
+from django.contrib.auth.models import User
+
+
+
 # Create your models here.
 # A tuple of 2-tuples
 MEALS = (
@@ -23,6 +29,7 @@ class Cat(models.Model):
     description = models.TextField(max_length=250)
     age = models.IntegerField()
     toys = models.ManyToManyField(Toy)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     def __str__(self):
